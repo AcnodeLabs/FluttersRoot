@@ -73,18 +73,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
- Widget _buildListItemConcerns(BuildContext context, DocumentSnapshot document) {
+ Widget _buildListItems(BuildContext context, DocumentSnapshot document) {
     //Get Data from Cloud
-    Concerns c = new Concerns();
-    c.mBy = document['name'].toString();
-   // c.mCat = document['cat'].toString();
-   // c.mDesc = document['desc'].toString();
-   // c.mLoc = document['loc'].toString();
-   // c.mStatus = document['status'].toString();
-    c.mWhen = document['balance'].toString();
+    Data d = new Data();
+    d.mCategory = document['name'].toString();
+    d.mBalance = document['balance'].toString();
     
     //UI
-    return Designs().getListBox(context, c);
+    return Designs().getListBox(context, d);
   }
 
   @override
@@ -109,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                itemExtent: 80.0,
                itemCount: snapshot.data.documents.length,
                itemBuilder: (context, index) => 
-                  _buildListItemConcerns(context, snapshot.data.documents[index]),
+                  _buildListItems(context, snapshot.data.documents[index]),
             );//ListViewBuilder
           },
       ),
