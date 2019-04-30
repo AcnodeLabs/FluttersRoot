@@ -76,12 +76,12 @@ class _MyHomePageState extends State<MyHomePage> {
  Widget _buildListItemConcerns(BuildContext context, DocumentSnapshot document) {
     //Get Data from Cloud
     Concerns c = new Concerns();
-    c.mBy = document['by'].toString();
-    c.mCat = document['cat'].toString();
-    c.mDesc = document['desc'].toString();
-    c.mLoc = document['loc'].toString();
-    c.mStatus = document['status'].toString();
-    c.mWhen = document['when'].toString();
+    c.mBy = document['name'].toString();
+   // c.mCat = document['cat'].toString();
+   // c.mDesc = document['desc'].toString();
+   // c.mLoc = document['loc'].toString();
+   // c.mStatus = document['status'].toString();
+    c.mWhen = document['balance'].toString();
     
     //UI
     return Designs().getListBox(context, c);
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: StreamBuilder(
-          stream: Firestore.instance.collection('concerns').snapshots(),
+          stream: Firestore.instance.collection('expences').snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) return const Text('Loading');
             return ListView.builder(
