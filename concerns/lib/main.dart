@@ -73,14 +73,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
- Widget _buildListItems(BuildContext context, DocumentSnapshot document) {
+ Widget _buildListItems(BuildContext context, DocumentSnapshot document,Firestore instance) {
     //Get Data from Cloud
-    Data d = new Data();
-    d.mCategory = document['name'].toString();
-    d.mBalance = document['balance'].toString();
+    Data data = new Data();
+    data.mCategory = document['name'].toString();
+    data.mBalance = document['balance'].toString();
     
     //UI
-    return Designs().getListBox(context, d);
+    return Designs().getListBox(context, data, document, instance);
   }
 
   @override
@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                itemExtent: 80.0,
                itemCount: snapshot.data.documents.length,
                itemBuilder: (context, index) => 
-                  _buildListItems(context, snapshot.data.documents[index]),
+                  _buildListItems(context, snapshot.data.documents[index], Firestore.instance),
             );//ListViewBuilder
           },
       ),
