@@ -6,9 +6,11 @@ class Data {
   String mCategory;
   String mBalance;
 }
+String category;
+DocumentSnapshot document;
+Firestore instance;
 
-void performUpdate(String cat, String desc, String amount,
-    DocumentSnapshot document, Firestore instance) {
+void performUpdate(String cat, String desc, String amount) {
   //push data to cloud
   //Update balance
   //Add record in 'expences-records'
@@ -17,42 +19,95 @@ void performUpdate(String cat, String desc, String amount,
     int newBal = document['balance'] - int.parse(amount);
     await document.reference.updateData({'balance': newBal});
     await reference.add({
-      "amount": int.parse(amount),
+      "amount": amount,
       "what": desc,
       "category": cat,
       "when": Timestamp.now()
     });
   });
 }
+class MyInputForm extends StatefulWidget {
 
-//DIALOGS
-Future<void> _inputExpenceDialog(BuildContext context, String category,
-    DocumentSnapshot document, Firestore instance) async {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      TextEditingController textEditingController1 =
-          new TextEditingController();
-      TextEditingController textEditingController2 =
-          new TextEditingController();
-      textEditingController1.text = '0';
+  void setInputs(String category0, DocumentSnapshot document0, Firestore instance0) {
+    category = category0;
+    document = document0;
+    instance = instance0;
+  }
+  @override
+  _MyInputFormState createState() => new _MyInputFormState() ;
+}  
+  
+  class _MyInputFormState extends State<MyInputForm> {
+  
+    TextEditingController textEditingController1 =
+      new TextEditingController();
+    TextEditingController textEditingController2 =
+      new TextEditingController();
+       // textEditingController1.text = '0';
+  
+  
+
+    @override
+    Widget build(BuildContext context) {
       TextField txtAmount = TextField(
-        keyboardType: TextInputType.number,
-        controller: textEditingController1,
-      );
-      TextField txtDesc = TextField(
-        keyboardType: TextInputType.text,
-        controller: textEditingController2,
-      );
-
+          keyboardType: TextInputType.number,
+          controller: textEditingController1,
+        );
+        TextField txtDesc = TextField(
+          keyboardType: TextInputType.text,
+          controller: textEditingController2,
+        );
+  
       return AlertDialog(
+          title: Text('Enter Expence Details'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Please Enter the Amount Spent in ' + category.toUpperCase()),
+                txtAmount,
+                Text('\n\nDescription (Optional)'),
+                txtDesc,
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text('ADD'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                performUpdate(category, textEditingController2.text,textEditingController1.text);
+              },
+            ),
+          ],
+        );
+    }
+  }
+  
+  //DIALOGS
+  Future<void> _inputExpenceDialog(BuildContext context, String category,
+      DocumentSnapshot document, Firestore instance) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        
+        MyInputForm a =  new MyInputForm();
+        a.setInputs(category, document, instance);
+      return a;
+
+
+    /*  return AlertDialog(
         title: Text('Enter Expence Details'),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              Text(
-                  'Please Enter the Amount Spent in ' + category.toUpperCase()),
+              Text('Please Enter the Amount Spent in ' + category.toUpperCase()),
               txtAmount,
               Text('\n\nDescription (Optional)'),
               txtDesc,
@@ -76,6 +131,7 @@ Future<void> _inputExpenceDialog(BuildContext context, String category,
           ),
         ],
       );
+      */
     },
   );
 }
@@ -90,7 +146,7 @@ Future<void> _adminDialog(BuildContext context, String category,
           new TextEditingController();
       TextEditingController textEditingController2 =
           new TextEditingController();
-      textEditingController1.text = '0';
+     // textEditingController1.text = '0';
       TextField txtAmount = TextField(
         keyboardType: TextInputType.number,
         controller: textEditingController1,
@@ -113,19 +169,19 @@ Future<void> _adminDialog(BuildContext context, String category,
         ),
         actions: <Widget>[
           FlatButton(
-            child: Text('Cancel'),
+            child: Text('CANCEL'),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           FlatButton(
-            child: Text('START NEW MONTH'),
+            child: Text('Reset'),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           FlatButton(
-            child: Text('SHOW TRANSACTIONS'),
+            child: Text('Data'),
             onPressed: () {
               Navigator.of(context).pop();
               performUpdate(category, textEditingController2.text,
