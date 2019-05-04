@@ -1,0 +1,21 @@
+
+lets dive into the lib folder which has the main code for the application.
+
+screens — Contains the screens of your application. All files from here get imported into routes.dart
+util — Contains the utilities/common functions of your application
+widgets — Contains the common widgets for your applications. For example, Button , TextField etc.
+routes.dart — Contains the routes of your application and imports all screens.
+
+
+https://hackernoon.com/scalable-app-structure-in-flutter-dad61a4bc389
+
+
+
+lib/
+|- main.dart
+|- routes.dart
+|- screens/
+|- util/      -- Util folder contains the business logic of your application. cals, format conversions
+|- widgets/   --COMMON Widgets Used Accross Screens
+|- data/
+|- services/   -- e.g authentication.dart
