@@ -1,0 +1,1 @@
+export 'TheDetailsPage.dart';
