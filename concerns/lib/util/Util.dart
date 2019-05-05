@@ -1,6 +1,7 @@
  import 'package:cloud_firestore/cloud_firestore.dart';
+class Util {
 
-String toMonth(int m) {
+static String toMonth(int m) {
     if (m == 1) return "Jan";
     if (m == 2) return "Feb";
     if (m == 3) return "Mar";
@@ -16,13 +17,13 @@ String toMonth(int m) {
     return "Month";
   }
 
-  String readTimestamp(Timestamp timestamp) {
+  static String DDMMM(Timestamp timestamp) {
     return timestamp.toDate().day.toString() +
         " " +
         toMonth(timestamp.toDate().month);
   }
 
-  String padIt(String x, int totalchars) {
+  static String padIt(String x, int totalchars) {
     var l = x.length;
     String ret = x;
     while (l < totalchars) {
@@ -31,3 +32,4 @@ String toMonth(int m) {
     }
     return ret;
   }
+}
