@@ -1,6 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+showAlertDialogYesNo(BuildContext context) {
+
+  // set up the buttons
+  Widget cancelButton = FlatButton(
+    child: Text("Cancel"),
+    onPressed:  () {
+      Navigator.pop(context);
+    },
+  );
+  Widget continueButton = FlatButton(
+    child: Text("Continue"),
+    onPressed:  () {
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("AlertDialog"),
+    content: Text("Are you sure you want to reset allocation to defaults ?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
 Future<void> showAdminDialog(BuildContext context, String category,
     DocumentSnapshot document, Firestore instance) async {
   return showDialog<void>(
@@ -43,6 +78,7 @@ Future<void> showAdminDialog(BuildContext context, String category,
             child: Text('Reset'),
             onPressed: () {
               Navigator.of(context).pop();
+              showAlertDialogYesNo(context);
             },
           ),
           FlatButton(

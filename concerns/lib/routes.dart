@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:concerns/screens/TheHomePage/TheHomePage.dart';
 import 'package:concerns/screens/TheDetailsPage/TheDetailsPage.dart';
+import 'package:concerns/screens/TheSplashScreen/index.dart';
 
 class Routes {
   final routes = <String, WidgetBuilder> {
+    '/Splash': (BuildContext context) => new TheSplashScreen(),
     '/Home': (BuildContext context) => new TheHomePage(),
     '/Details': (BuildContext context) => new TheDetailsPage()
   };
@@ -23,7 +25,7 @@ class Routes {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
           primarySwatch: Colors.deepPurple,
-          fontFamily: "Consolas"),
+          fontFamily: "Monaco"),
       home: TheHomePage(title: 'Our Home Expences App'),
     ));
   }

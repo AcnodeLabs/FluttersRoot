@@ -54,8 +54,7 @@ class _TheInputFormState extends State<TheInputForm> {
       FlatButton(
         child: Text('<VIEW>'),
         onPressed: () {
-          Navigator.of(context).pop();
-          //   setViewMode(2);
+          Navigator.popAndPushNamed(context, '/Details');
         },
       ),
       FlatButton(

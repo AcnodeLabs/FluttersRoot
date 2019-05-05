@@ -89,7 +89,7 @@ class _TheDetailsPageState extends State<TheDetailsPage> {
 
   StreamBuilder listFromDb(String collectionName, int type) {
     return StreamBuilder(
-        stream: Firestore.instance.collection(collectionName).snapshots(),
+        stream: Firestore.instance.collection(collectionName).where('category',isEqualTo: category).snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) return const Text('Loading');
           return ListView.builder(
@@ -129,11 +129,12 @@ class _TheDetailsPageState extends State<TheDetailsPage> {
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: FlatButton(
-            child: Text('<< BACK'),
+          title: RaisedButton(
+            child: Text(
+              '<< DETAILS of ' + category + ' >>'
+            ),
             onPressed: () {
-              Navigator.of(context).pop();
-              viewMode = 1;
+           //   Navigator.pop(context);
             },
           ),
         ),

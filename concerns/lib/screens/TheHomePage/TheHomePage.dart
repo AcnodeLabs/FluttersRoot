@@ -45,6 +45,8 @@ class _TheHomePageState extends State<TheHomePage> {
     if (type == 1) {
       data.mStr1 = document['name'].toString();
       data.mStr2 = document['balance'].toString();
+      data.mStr3 = document['alloc'].toString();
+      
     }
 
     if (type == 2) {
@@ -70,7 +72,9 @@ class _TheHomePageState extends State<TheHomePage> {
               color: Color(0xaaddaaff),
             ),
             padding: const EdgeInsets.all(10.0),
-            child: Text(data.mStr2, style: mTheme.display1),
+            child: Text(Util.padIt(data.mStr2, 5)  + " / " + Util.padIt(data.mStr3,5), 
+                     // style: TextStyle(fontSize: mTheme.display1.fontSize, fontFamily: 'Courier') ),
+                      style:  mTheme.display1 ),
           ),
         ],
       ),
@@ -103,6 +107,9 @@ class _TheHomePageState extends State<TheHomePage> {
   int viewMode = 1;
   @override
   Widget build(BuildContext context) {
+
+    title: 'Our Home Expences App';
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
