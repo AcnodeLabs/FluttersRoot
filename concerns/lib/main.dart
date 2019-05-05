@@ -1,11 +1,12 @@
 import 'package:concerns/screens/TheHomePage/TheHomePage.dart';
 import 'package:flutter/material.dart';
+import 'routes.dart';
 
 void main() {
   //   MapView.setApiKey("AIzaSyBRRVZQb0kK9_Tvy3u_D84zPSJbZ0RbjNo");
-  runApp(new MyApp());
+  new Routes();
 }
-
+/*
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -29,4 +30,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
+*/
