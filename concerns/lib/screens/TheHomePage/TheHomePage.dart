@@ -4,6 +4,7 @@ import '../../data/index.dart';
 import '../../util/index.dart';
 import '../../screens/TheInputForm/TheInputForm.dart';
 import '../../screens/TheAdminDialog/TheAdminDialog.dart';
+import '../../screens/TheSplashScreen/index.dart';
 
 class TheHomePage extends StatefulWidget {
   TheHomePage({Key key, this.title}) : super(key: key);
@@ -107,7 +108,7 @@ class _TheHomePageState extends State<TheHomePage> {
   int viewMode = 1;
   @override
   Widget build(BuildContext context) {
-
+    
     title: 'Our Home Expences App';
 
     // This method is rerun every time setState is called, for instance as done

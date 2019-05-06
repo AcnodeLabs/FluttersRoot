@@ -11,7 +11,7 @@ class _TheSplashScreenState extends State<TheSplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 5), () => Navigator.popAndPushNamed(context, "/Home"));
+    Timer(Duration(seconds: 5), () => Navigator.pop(context));
   }
 
   @override

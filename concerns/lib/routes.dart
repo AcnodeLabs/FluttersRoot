@@ -29,7 +29,6 @@ class Routes {
       home: TheHomePage(title: 'Our Home Expences App'),
     ));
   }
-
 }
 
 class MyApp extends StatelessWidget {
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primarySwatch: Colors.deepPurple,
+          primarySwatch: Colors.deepOrange,
           fontFamily: "Consolas"),
       home: TheHomePage(title: 'Our Home Expences App'),
     );

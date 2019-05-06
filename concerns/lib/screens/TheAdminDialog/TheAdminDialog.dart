@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../services/services.dart';
 
 showAlertDialogYesNo(BuildContext context) {
+  BuildContext bc;
 
   // set up the buttons
   Widget cancelButton = FlatButton(
     child: Text("Cancel"),
     onPressed:  () {
-      Navigator.pop(context);
+      Navigator.pop(bc);
     },
   );
   Widget continueButton = FlatButton(
     child: Text("Continue"),
     onPressed:  () {
-      Navigator.pop(context);
+      Navigator.pop(bc);
     },
   );
 
@@ -31,6 +33,7 @@ showAlertDialogYesNo(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
+      bc = context;
       return alert;
     },
   );
@@ -58,12 +61,13 @@ Future<void> showAdminDialog(BuildContext context, String category,
 
       return AlertDialog(
         title: Text('ADMIN DIALOG'),
-        backgroundColor: Color(0xaaddaaff),
+        backgroundColor: Colors.redAccent,
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[
-              Text('Help:\n    tap any category for daily use'),
-              Text('\n    : long press any category to show this dialog\n\n'),
+              Text('\nPress RESET to reset to default allocations\n'),
+              Text('\nPress ALLOCATE to change allocations\n'),
+              Text('\nPress CANCEL to exit to normal\n'),
             ],
           ),
         ),
@@ -75,20 +79,20 @@ Future<void> showAdminDialog(BuildContext context, String category,
             },
           ),
           FlatButton(
-            child: Text('Reset'),
+            child: Text('ALLOCATE'),
             onPressed: () {
               Navigator.of(context).pop();
-              showAlertDialogYesNo(context);
             },
           ),
           FlatButton(
-            child: Text('Data'),
+            child: Text('<<< RESET >>>'),
             onPressed: () {
               Navigator.of(context).pop();
-              //      performUpdate(category, textEditingController2.text,
-              //         textEditingController1.text, document, instance);
+              showAlertDialogYesNo(context);
+              Services.act('Admin', 'Reset');
             },
           ),
+          
         ],
       );
     },
