@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../services/services.dart';
 
-showAlertDialogYesNo(BuildContext context) {
+
+
+showAlertDialogYesNo(BuildContext context, String msg) {
   BuildContext bc;
 
   // set up the buttons
@@ -22,7 +24,7 @@ showAlertDialogYesNo(BuildContext context) {
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
     title: Text("AlertDialog"),
-    content: Text("Are you sure you want to reset allocation to defaults ?"),
+    content: Text("Are you sure you want to "+ msg + " ?"),
     actions: [
       cancelButton,
       continueButton,
@@ -88,7 +90,7 @@ Future<void> showAdminDialog(BuildContext context, String category,
             child: Text('<<< RESET >>>'),
             onPressed: () {
               Navigator.of(context).pop();
-              showAlertDialogYesNo(context);
+              showAlertDialogYesNo(context, "reset allocations to Defaults");
               Services.act('Admin', 'Reset');
             },
           ),

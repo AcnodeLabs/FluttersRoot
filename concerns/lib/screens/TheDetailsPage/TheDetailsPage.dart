@@ -2,8 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../data/index.dart';
 import '../../util/index.dart';
+import '../../services/services.dart';
 import '../../screens/TheInputForm/TheInputForm.dart';
 import '../../screens/TheAdminDialog/TheAdminDialog.dart';
+
+
+Future<int> _asyncConfirmDialog(BuildContext context, String msg) async {
+  return showDialog<int>(
+    context: context,
+    barrierDismissible: false, // user must tap button for close dialog!
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Please Confirm'),
+        content: Text(
+            'Are you sure you want to '+ msg+ '?'),
+        actions: <Widget>[
+          FlatButton(
+            child: const Text('CANCEL'),
+            onPressed: () {
+              Navigator.of(context).pop(0);
+            },
+          ),
+          FlatButton(
+            child: const Text('PROCEED'),
+            onPressed: () {
+              Navigator.of(context).pop(1);
+            },
+          )
+        ],
+      );
+    },
+  );
+}
 
 class TheDetailsPage extends StatefulWidget {
   TheDetailsPage({Key key, this.title}) : super(key: key);
@@ -75,10 +105,22 @@ class _TheDetailsPageState extends State<TheDetailsPage> {
         ],
       ),
       //HANDLER
-      onTap: () {
+      onTap: () async {
         print("onTap");
-        if (type == 1)
-          showInputForm(context, data.mStr1, document, instance);
+        final int ii = await _asyncConfirmDialog(context, "delete this record " + document['what'].toString() + "(" +document['amount'].toString() + ")");
+        
+        if (ii == 1) {
+          int amount = int.parse(document['amount'].toString());
+          instance.runTransaction((Transaction transaction) async {
+            Firestore.instance.collection('expences-records').document(document.documentID).delete();
+          });
+          instance.runTransaction((Transaction transaction) async {
+            QuerySnapshot a = await Firestore.instance.collection('expences').where('name',isEqualTo: category).snapshots().first;
+              DocumentSnapshot dd = a.documents.first;
+              int bal = dd['balance'];
+              await dd.reference.updateData({'balance': (bal+ amount)});
+            });
+       }
       },
       onLongPress: () {
         print("onLongPress");

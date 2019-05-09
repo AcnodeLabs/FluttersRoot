@@ -17,6 +17,10 @@ static String toMonth(int m) {
     return "Month";
   }
 
+  static String MMMYY(Timestamp timestamp) {
+    return toMonth(timestamp.toDate().month)+timestamp.toDate().year.toString();
+  }
+
   static String DDMMM(Timestamp timestamp) {
     return timestamp.toDate().day.toString() +
         " " +

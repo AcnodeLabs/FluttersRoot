@@ -55,7 +55,7 @@ class _TheHomePageState extends State<TheHomePage> {
           Util.padIt(document['amount'].toString(), 10) +
           "     " +
           document['what'].toString();
-      data.mStr2 = Util.DDMMM(document['when']);
+      data.mStr2 = Util.MMMYY(document['when']);
     }
 
     //UI
