@@ -1,2 +1,3 @@
 concerns/android/app/google-services.json
+concerns/ios/Runner/GoogleService-Info.plist
 .DS_Store
